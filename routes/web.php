@@ -19,6 +19,8 @@ Route::post('/examples/{snippet}', 'SnippetController@storeExample');
 
 Route::get('/tags/{tag}', 'TagController@index');
 
+Route::get('/language/{language}', 'languageController@index');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -55,6 +55,10 @@ margin-left: 0;
 border-radius: 0;
 }
 
+.sidebar h2 {
+  padding-left: 5px;
+}
+
 /*
 * Dashboard
 */
@@ -70,5 +74,5 @@ padding-bottom: 1.5rem;
 }
 
 .ace_editor {
-    height: 300px;
+    min-height: 300px;
 }

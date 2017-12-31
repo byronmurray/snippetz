@@ -17,7 +17,7 @@
       @foreach ($snippets as $snippet)
 
         <tr>
-          <th scope="row">{{ $snippet->language }}</th>
+          <th scope="row">{{ $snippet->language->name }}</th>
           <td><a href="/snippets/{{ $snippet->id }}"> {{ $snippet->title }} </a></td>
           <td> {{ $snippet->description }} </td>
           <td> {{ $snippet->created_at }} </td>

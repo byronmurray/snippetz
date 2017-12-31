@@ -9,9 +9,9 @@ class Snippet extends Model
 
   protected $fillable = [
       'title',
+      'language_id',
       'description',
       'snippet',
-      'language',
   ];
 
   public function tags() {
@@ -20,6 +20,10 @@ class Snippet extends Model
 
   public function examples() {
     return $this->belongsToMany(Example::class);
+  }
+
+  public function language() {
+    return $this->belongsTo(Language::class);
   }
 
 }

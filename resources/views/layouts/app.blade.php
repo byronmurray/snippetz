@@ -50,13 +50,14 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
     <script src="{{ asset('/js/ace/ace.js') }}" type="text/javascript" charset="utf-8"></script>
+
     <script>
 
       var editor;
       $('.editor').each(function( index ) {
         editor = ace.edit(this);
         editor.setTheme("ace/theme/monokai");
-        editor.getSession().setMode('ace/mode/php');
+        editor.getSession().setMode("ace/mode/php");
       });
 
       var textarea = $('textarea[name="snippet"]');
@@ -65,6 +66,9 @@
       });
 
     </script>
+
+    @yield('scripts')
+
 
   </body>
 </html>

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Tag;
 use App\Snippet;
 use App\Example;
+use App\Language;
 use Illuminate\Http\Request;
 
 class SnippetController extends Controller
@@ -26,7 +28,9 @@ class SnippetController extends Controller
      */
     public function create()
     {
-        return view('snippets.create');
+        $tags = Tag::pluck('name', 'id');
+        $language = Language::pluck('name', 'id');
+        return view('snippets.create', compact('tags', 'language'));
     }
 
     /**
@@ -37,13 +41,11 @@ class SnippetController extends Controller
      */
     public function store(Request $request)
     {
-
-      //return $request;
       $snippet = Snippet::create([
           'title' => $request->title,
+          'language_id' => $request->language_id,
           'description' => $request->description,
           'snippet' => $request->snippet,
-          'language' => $request->language,
       ]);
 
       $snippet->tags()->attach($request->tag_id);
@@ -59,7 +61,6 @@ class SnippetController extends Controller
      */
     public function storeExample(Request $request, Snippet $snippet)
     {
-
       $example = Example::create([
           'description' => $request->description,
           'snippet' => $request->snippet,
@@ -78,7 +79,6 @@ class SnippetController extends Controller
      */
     public function show(Snippet $snippet)
     {
-        //return $snippet->examples;
         return view('snippets.show', compact('snippet'));
     }
 

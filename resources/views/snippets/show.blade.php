@@ -8,7 +8,6 @@
 <br>
 <small>{{ $snippet->created_at }} </small>
 
-
 <hr>
 
 <h2>Description</h2>
@@ -16,7 +15,7 @@
   {{ $snippet->description }}
 </div>
 
-<p>language: {{ $snippet->language }}</p>
+<p>language: {{ $snippet->language->name }}</p>
 
 <hr>
 
@@ -50,28 +49,30 @@
 
 <br><br><br>
 
-<h2>Add Examples and use cases of snippet</h2>
+<h2 data-toggle="collapse" href="#collapseExample" aria-expanded="false">Add Examples and use cases of snippet</h2>
 
-{!! Form::open(['url' => '/examples/1', 'method' => 'post']) !!}
+<div class="collapse" id="collapseExample">
+  {!! Form::open(['url' => '/examples/1', 'method' => 'post']) !!}
 
-  <div class="form-group">
-    {{ Form::label('description', 'description') }}
-    {{ Form::textarea('description', '', ['class' => 'form-control']) }}
-  </div>
+    <div class="form-group">
+      {{ Form::label('description', 'description') }}
+      {{ Form::textarea('description', '', ['class' => 'form-control']) }}
+    </div>
 
-  <div class="form-group">
-    {{ Form::label('snippet', 'snippet') }}
-    <div class="editor"></div>
-    {{ Form::textarea('snippet', '', ['class' => 'form-control hidden-xs-up']) }}
-  </div>
+    <div class="form-group">
+      {{ Form::label('snippet', 'snippet') }}
+      <div class="editor"></div>
+      {{ Form::textarea('snippet', '', ['class' => 'form-control hidden-xs-up']) }}
+    </div>
 
-  <div class="form-group">
-    {{ Form::submit('Add', ['class' => 'form-control btn-primary']) }}
-  </div>
+    <div class="form-group">
+      {{ Form::submit('Add', ['class' => 'form-control btn-primary']) }}
+    </div>
 
-{!! Form::close() !!}
+  {!! Form::close() !!}
+</div>
+
 <br>
-Hide form till add example is clicked<br>
 
 flash message<br>
 Need validation<br>

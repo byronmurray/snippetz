@@ -17,18 +17,18 @@
 
       <div class="form-group">
         {{ Form::label('snippet', 'snippet') }}
-        <div id="snippet"></div>
+        <div class="editor"></div>
         {{ Form::textarea('snippet', '', ['class' => 'form-control hidden-xs-up']) }}
       </div>
 
       <div class="form-group">
         {{ Form::label('language', 'language') }}
-        {{ Form::select('language', ['PHP', 'JavaScript', 'CSS', 'HTML']) }}
+        {{ Form::select('language_id', $language, null, ['class' => 'form-control']) }}
       </div>
 
       <div class="form-group">
         {{ Form::label('tags', 'tags') }}
-        {{ Form::select('tag_id', [ 1 => 'Wordpress', 2 => 'Laravel', 3 => 'jQuery', 4 => 'Sass']) }}
+        {{ Form::select('tag_id[]', $tags, null, ['class' => 'form-control', 'multiple']) }}
       </div>
 
       <div class="form-group">
