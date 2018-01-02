@@ -76,3 +76,20 @@ padding-bottom: 1.5rem;
 .ace_editor {
     min-height: 300px;
 }
+
+.snippet-title {
+  border: none;
+  padding-left: 0;
+  text-transform: uppercase;
+  font-size: 1.8em;
+  border: 0;
+  padding: 2px;
+  background: #fff;
+  font: 30px sans-serif;
+}
+
+.tmp-element {
+  visibility: hidden;
+  white-space: pre;
+  font: 45px sans-serif;
+}

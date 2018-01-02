@@ -49,8 +49,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
-    <script src="{{ asset('/js/ace/ace.js') }}" type="text/javascript" charset="utf-8"></script>
+    <script src="https://use.fontawesome.com/335bdb7e6e.js"></script>
 
+    <script src="{{ asset('/js/ace/ace.js') }}" type="text/javascript" charset="utf-8"></script>
     <script>
 
       var editor;
@@ -60,10 +61,17 @@
         editor.getSession().setMode("ace/mode/php");
       });
 
-      var textarea = $('textarea[name="snippet"]');
-          editor.getSession().on("change", function () {
+      // get this editor and update the hidden
+      // textarea to be able to submit to the DB
+      $('.editor').on('click', function() {
+        editorDOMobject = $(this);
+        editor = ace.edit(this);
+        editor.getSession().on("change", function () {
+          var textarea = editorDOMobject.next('.snippet');
           textarea.val(editor.getSession().getValue());
+        });
       });
+
 
     </script>
 

@@ -61,6 +61,7 @@ class SnippetController extends Controller
      */
     public function storeExample(Request $request, Snippet $snippet)
     {
+      
       $example = Example::create([
           'description' => $request->description,
           'snippet' => $request->snippet,
@@ -103,7 +104,10 @@ class SnippetController extends Controller
      */
     public function update(Request $request, Snippet $snippet)
     {
-        //
+        $snippet->update($request->all());
+
+        return back();
+
     }
 
     /**

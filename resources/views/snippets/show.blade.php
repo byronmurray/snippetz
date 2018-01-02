@@ -2,79 +2,99 @@
 
 @section('content')
 
-<h1>{{ $snippet->title }} </h1>
+  @include('partials.forms.edit_snippet_title')
+  <br>
 
-<button type="button" name="button" class="btn btn-info pull-right">edit</button>
-<br>
-<small>{{ $snippet->created_at }} </small>
+  <small>{{ $snippet->created_at }} </small>
+  <p>language: {{ $snippet->language->name }}</p>
+  <hr>
 
-<hr>
+  <h2>Description <i class="fa fa-pencil" aria-hidden="true"></i></h2>
+  @include('partials.forms.edit_snippet_description')
+  <hr>
 
-<h2>Description</h2>
-<div class="description">
-  {{ $snippet->description }}
-</div>
+  @include('partials.forms.edit_snippet_snippet')
 
-<p>language: {{ $snippet->language->name }}</p>
+  @include('partials.show_examples')
 
-<hr>
+  @include('partials.show_tags')
 
-<h2>Snippet</h2>
-<div class="editor">
-  {{ $snippet->snippet }}
-</div>
+  <br><br><br>
 
-@if (count($snippet->examples) )
-  <h2>Examples</h2>
-  @foreach ($snippet->examples as $example)
+  <h2 data-toggle="collapse" href="#collapseExample" aria-expanded="false">Add Examples and use cases of snippet</h2>
 
-    <div class="description">
-      {{ $example->description }}
-    </div>
+  <div class="collapse" id="collapseExample">
+    @include('partials.forms.create_example')
+  </div>
 
-    <div class="editor">
-      {{ $example->snippet }}
-    </div>
+  <br>
 
-  @endforeach
-@endif
+  flash message<br>
+  Need validation<br>
 
-@if (count($snippet->tags) )
-  <h2>Tags</h2>
-  @foreach ($snippet->tags as $tag)
-    <a href="/tags/{{ $tag->name }}"> {{ $tag->name }} </a>
-  @endforeach
-@endif
+@endsection
+
+@section('scripts')
+  <script>
 
 
-<br><br><br>
 
-<h2 data-toggle="collapse" href="#collapseExample" aria-expanded="false">Add Examples and use cases of snippet</h2>
+    // hide buttons and disable text field
+    $titleWrap = $('#form-title');
+    // get title value first incase cancel is selected
+    titleText = $('#snippet-title').val();
+    $titleWrap.find('.fa-pencil').hide();
+    $titleWrap.find('.btn').hide();
+    $titleWrap.find('.snippet-title').prop("disabled", true);
 
-<div class="collapse" id="collapseExample">
-  {!! Form::open(['url' => '/examples/1', 'method' => 'post']) !!}
+    $titleWrap.mouseenter(function () {
 
-    <div class="form-group">
-      {{ Form::label('description', 'description') }}
-      {{ Form::textarea('description', '', ['class' => 'form-control']) }}
-    </div>
+      if ($(this).find('.btn').css('display') == 'none' )  {
+        $(this).find('.fa-pencil').show();
+        $(this).find('.fa-pencil').on('click', function() {
+          $titleWrap.find('.btn').show();
+          $titleWrap.find('.snippet-title').prop("disabled", false);
+          $(this).hide();
+        });
+      }
 
-    <div class="form-group">
-      {{ Form::label('snippet', 'snippet') }}
-      <div class="editor"></div>
-      {{ Form::textarea('snippet', '', ['class' => 'form-control hidden-xs-up']) }}
-    </div>
+    }).mouseleave(function() {
+      $(this).find('.fa-pencil').hide();
+    });
 
-    <div class="form-group">
-      {{ Form::submit('Add', ['class' => 'form-control btn-primary']) }}
-    </div>
+    // click cancel
+    $titleWrap.find('.cancel').on('click', function() {
+      // hide the buttons again
+      $titleWrap.find('.btn').hide();
+      // disable the text field
+      $titleWrap.find('.snippet-title').prop("disabled", true);
+      // Restore curret title
+      $('#snippet-title').val(titleText);
+    });
 
-  {!! Form::close() !!}
-</div>
 
-<br>
 
-flash message<br>
-Need validation<br>
+  </script>
 
+  <script>
+      // ajust width of text fields
+      var inputEl = document.getElementById("snippet-title");
+
+      function getWidthOfInput() {
+        var tmp = document.createElement("span");
+        tmp.className = "input-element tmp-element";
+        tmp.innerHTML = inputEl.value.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        document.body.appendChild(tmp);
+        var theWidth = tmp.getBoundingClientRect().width;
+        document.body.removeChild(tmp);
+        return theWidth;
+      }
+
+      function adjustWidthOfInput() {
+        inputEl.style.width = getWidthOfInput() + "px";
+      }
+
+      adjustWidthOfInput();
+      inputEl.onkeyup = adjustWidthOfInput;
+    </script>
 @endsection
